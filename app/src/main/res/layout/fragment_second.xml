@@ -6,22 +6,36 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
+    <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="#009900"
-            android:id="@+id/business_news_rcv"
-            tools:listitem="@layout/item_rss"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+            app:cardElevation="4dp"
+            android:layout_margin="4dp">
+        <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/business_news_rcv"
+                tools:listitem="@layout/item_rss"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-            android:layout_marginTop="16dp"
-            android:id="@+id/second_rcv"
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
-            android:background="#990000"
             android:layout_height="0dp"
             android:layout_weight="1"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_rss"/>
+            android:layout_marginTop="8dp"
+            app:cardElevation="4dp"
+            android:layout_margin="4dp">
+        <androidx.recyclerview.widget.RecyclerView
+
+                android:id="@+id/entert_and_envirom_rcv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_rss"/>
+    </com.google.android.material.card.MaterialCardView>
+
+
 </LinearLayout>

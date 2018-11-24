@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 
 import androidx.lifecycle.ViewModelProviders
+import kotlinx.android.synthetic.main.fragment_first.*
 
 /**
  * A simple [Fragment] subclass.
@@ -25,11 +26,16 @@ class FirstFragment : Fragment() {
 
     /*private var mListener: OnFragmentInteractionListener? = null*/
 
-    private lateinit var  viewModel : MainViewModel
+    var lastRssTitle:String = ""
+
+    private lateinit var  mViewModel : MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        activity?.let {
+            mViewModel = ViewModelProviders.of(it).get(MainViewModel::class.java)
+            }
     }
 
 
@@ -45,19 +51,9 @@ class FirstFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
-
+        last_rss_title_tv.text = lastRssTitle
     }
 
-    private fun onHelpBtnClick()
-    {
-
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-    }
 
 
     override fun onAttach(context: Context) {
@@ -73,7 +69,6 @@ class FirstFragment : Fragment() {
         super.onDetach()
         /*mListener = null*/
     }
-
 
 
     /**

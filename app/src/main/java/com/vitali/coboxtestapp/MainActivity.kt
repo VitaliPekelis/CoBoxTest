@@ -1,22 +1,33 @@
 package com.vitali.coboxtestapp
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), SecondFragment.OnFragmentInteractionListener {
 
-    lateinit var viewModel: MainViewModel
+
+    private var firstFragment:FirstFragment? = null
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {
-                FirstFragment.newInstance().also {
-                    replaceFragment(fragment_container.id, it)
+
+                /*replaceFragment(fragment_container.id, fragment = firstFragment ?: FirstFragment.newInstance().also {
+                    firstFragment = it
+                })*/
+
+                if(firstFragment == null)
+                {
+                    firstFragment = FirstFragment.newInstance()
+
                 }
+
+                replaceFragment(fragment_container.id, firstFragment!!)
+
 
                 return@OnNavigationItemSelectedListener true
             }
@@ -34,11 +45,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-
-
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         navigation.selectedItemId = R.id.navigation_home
 
+    }
+
+    //------------------------------------------------------------------------------------------------------------------
+    // SecondFragment.OnFragmentInteractionListener - implementation
+    //------------------------------------------------------------------------------------------------------------------
+    override fun onRssItemClick(title: String) {
+        firstFragment?.lastRssTitle = title
+    }
+    override fun onUpdateContent(number:Int) {
+        Toast.makeText(this@MainActivity, "$number Content Updated", Toast.LENGTH_SHORT).show()
     }
 }

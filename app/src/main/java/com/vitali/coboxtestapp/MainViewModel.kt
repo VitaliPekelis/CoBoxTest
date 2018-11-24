@@ -11,18 +11,22 @@ class MainViewModel: ViewModel()
         RssRepo()
     }
 
-    var businessNews: LiveData<List<RssItem>>? = null
-    var entertainmentAndEnvironmentNews:LiveData<List<RssItem>>? = null
+    var businessNews: MutableLiveData<List<RssItem>> = MutableLiveData()
+    var entertainmentAndEnvironmentNews:MutableLiveData<List<RssItem>> = MutableLiveData()
 
     fun fetchBusinessNews()
     {
-        val news = rssRepo.getRss1()
-        businessNews = news
+        rssRepo.getRss1(businessNews)
     }
 
     fun fetchEntertainmentAndEnvirNews()
     {
-        entertainmentAndEnvironmentNews = rssRepo.getRss2()
+        rssRepo.getRss2(entertainmentAndEnvironmentNews)
+    }
+
+
+    override fun onCleared() {
+        super.onCleared()
     }
 
 }

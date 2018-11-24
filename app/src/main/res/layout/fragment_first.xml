@@ -23,9 +23,10 @@
             android:format24Hour="HH:mm:ss"/>
 
     <TextView
-            android:id="@+id/title_tv"
-            android:layout_width="wrap_content"
+            android:id="@+id/last_rss_title_tv"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
             tools:text="Article Title"
             android:textSize="24sp"/>
 

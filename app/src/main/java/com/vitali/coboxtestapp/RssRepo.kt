@@ -19,10 +19,8 @@ class RssRepo {
         AppService.create()
     }
 
-    fun getRss1(): LiveData<List<RssItem>> {
-
-        val data = MutableLiveData<List<RssItem>>()
-
+    fun getRss1(data:MutableLiveData<List<RssItem>>)
+    {
         appService.getRssLiveData("http://feeds.reuters.com/reuters/businessNews").enqueue(object : Callback<RssFeed> {
             override fun onFailure(call: Call<RssFeed>, t: Throwable)
             {
@@ -37,31 +35,11 @@ class RssRepo {
                 }
             }
         })
-
-        return data
     }
 
-
-    /*BiFunction<RssFeed, RssFeed, LiveData<List<RssItem>>>()
-            { rss1, rss2 ->
-                val list1 = rss1.items
-                val list2 = rss2.items
-
-                val resultList = mutableListOf<RssItem>().apply {
-                    addAll(list1 as MutableList)
-                    addAll(list2 as MutableList)
-                }
-
-                return@BiFunction MutableLiveData<List<RssItem>>().apply {
-                    value = resultList
-                }
-            })*/
-
     @SuppressLint("CheckResult")
-    fun getRss2(): LiveData<List<RssItem>>
+    fun getRss2(data:MutableLiveData<List<RssItem>>)
     {
-        val data = MutableLiveData<List<RssItem>>()
-
         val first = appService.getRssObservable("http://feeds.reuters.com/reuters/entertainment").subscribeOn(Schedulers.io())
         val second = appService.getRssObservable("http://feeds.reuters.com/reuters/environment").subscribeOn(Schedulers.io())
 
@@ -85,12 +63,5 @@ class RssRepo {
             .subscribe {
                 data.value = it
             }
-
-        return data
     }
-
-    /*interface MyCallback<T>{
-        fun onSuccess(result: T)
-        fun onError(t: Throwable)
-    }*/
 }
