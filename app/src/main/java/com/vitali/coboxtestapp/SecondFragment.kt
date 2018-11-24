@@ -6,7 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.fragment_first.*
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 
 /**
  * A simple [Fragment] subclass.
@@ -23,6 +24,7 @@ private const val ARG_= "arg_"
 class SecondFragment : Fragment() {
 
     /*private var mListener: OnFragmentInteractionListener? = null*/
+    private lateinit var  viewModel : MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +38,30 @@ class SecondFragment : Fragment() {
         savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_second, container, false)
+    }
+
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+
+        viewModel.apply {
+            fetchBusinessNews()
+
+            viewModel.businessNews?.observe(this@SecondFragment, Observer {
+                //update UI
+                val result = it
+            })
+
+            viewModel.apply {
+                fetchEntertainmentAndEnvirNews()
+                entertainmentAndEnvironmentNews?.observe(this@SecondFragment, Observer {
+                    //update UI
+                    val result = it
+                })
+            }
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)

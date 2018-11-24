@@ -6,7 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.fragment_first.*
+
+import androidx.lifecycle.ViewModelProviders
 
 /**
  * A simple [Fragment] subclass.
@@ -24,12 +25,16 @@ class FirstFragment : Fragment() {
 
     /*private var mListener: OnFragmentInteractionListener? = null*/
 
+    private lateinit var  viewModel : MainViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        /*arguments?.let {
-        }*/
     }
+
+
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,6 +51,12 @@ class FirstFragment : Fragment() {
     private fun onHelpBtnClick()
     {
 
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
     }
 
 

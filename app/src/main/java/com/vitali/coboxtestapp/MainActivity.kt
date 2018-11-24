@@ -2,11 +2,14 @@ package com.vitali.coboxtestapp
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
+
+    lateinit var viewModel: MainViewModel
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
@@ -31,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
+        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
 
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
