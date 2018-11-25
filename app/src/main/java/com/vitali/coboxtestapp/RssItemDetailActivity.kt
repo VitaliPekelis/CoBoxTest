@@ -14,8 +14,6 @@ class RssItemDetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_rss_item_detail)
 
         val rssItem:RssItem? = intent.extras?.getSerializable(RSS_ITEM_EXTRA) as? RssItem
-        //rss_item_wv.loadUrl(rssItem?.link)
-
 
         rss_item_wv.apply{
             webViewClient = WebViewClient()

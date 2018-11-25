@@ -30,23 +30,23 @@ const val RSS_ITEM_EXTRA= "rss_item_extra"
 class SecondFragment : Fragment(), IAdapterListener {
 
     private var mListener: OnFragmentInteractionListener? = null
-    private lateinit var  viewModel : MainViewModel
-    private val adapterB = BusinessNewsAdapter(this)
-    private val adapterE = EntertainmentAndEnvironmentNewsAdapter(this)
+    private lateinit var  mViewModel : MainViewModel
+    private val mAdapterB = BusinessNewsAdapter(this)
+    private val mAdapterE = EntertainmentAndEnvironmentNewsAdapter(this)
 
-    private val delay = 5000L //milliseconds
-    private var handler:Handler? = Handler(Looper.getMainLooper())
-    private var runnable:Runnable? = null
+    private val mDelay = 5000L //milliseconds
+    private var mHandler:Handler? = Handler(Looper.getMainLooper())
+    private var mRunnable:Runnable? = null
 
 
     init{
-        runnable = Runnable {
-            viewModel.apply {
+        mRunnable = Runnable {
+            mViewModel.apply {
                 fetchEntertainmentAndEnvirNews()
                 fetchBusinessNews()
             }
 
-            handler?.postDelayed(this.runnable, delay)
+            mHandler?.postDelayed(this.mRunnable, mDelay)
         }
     }
 
@@ -54,14 +54,14 @@ class SecondFragment : Fragment(), IAdapterListener {
         super.onCreate(savedInstanceState)
 
         activity?.let {
-            viewModel = ViewModelProviders.of(this@SecondFragment).get(MainViewModel::class.java).apply {
+            mViewModel = ViewModelProviders.of(this@SecondFragment).get(MainViewModel::class.java).apply {
 
                 fetchEntertainmentAndEnvirNews()
                 fetchBusinessNews()
 
                 businessNews?.observe(this@SecondFragment, Observer {
                     //update UI
-                    adapterB.apply {
+                    mAdapterB.apply {
                         currentData.clear()
                         currentData = it as ArrayList<RssItem>
                         notifyDataSetChanged()
@@ -72,7 +72,7 @@ class SecondFragment : Fragment(), IAdapterListener {
 
                 entertainmentAndEnvironmentNews?.observe(this@SecondFragment, Observer {
                     //update UI
-                    adapterE.apply {
+                    mAdapterE.apply {
                         currentData.clear()
                         currentData = it as ArrayList<RssItem>
                         notifyDataSetChanged()
@@ -92,8 +92,8 @@ class SecondFragment : Fragment(), IAdapterListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
-        business_news_rcv.adapter = this.adapterB
-        entert_and_envirom_rcv.adapter = this.adapterE
+        business_news_rcv.adapter = this.mAdapterB
+        entert_and_envirom_rcv.adapter = this.mAdapterE
     }
 
 
@@ -109,17 +109,17 @@ class SecondFragment : Fragment(), IAdapterListener {
     override fun onDetach() {
         super.onDetach()
         mListener = null
-        handler = null
-        runnable = null
+        mHandler = null
+        mRunnable = null
     }
 
     override fun onResume() {
         super.onResume()
-        handler?.postDelayed(runnable, delay)
+        mHandler?.postDelayed(mRunnable, mDelay)
     }
 
     override fun onPause() {
-        handler?.removeCallbacks(runnable)
+        mHandler?.removeCallbacks(mRunnable)
         super.onPause()
     }
 

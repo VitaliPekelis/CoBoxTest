@@ -1,7 +1,6 @@
 package com.vitali.coboxtestapp
 
 import android.annotation.SuppressLint
-import androidx.lifecycle.LiveData
 import me.toptas.rssconverter.RssItem
 import retrofit2.Call
 import retrofit2.Callback
@@ -15,13 +14,13 @@ import io.reactivex.functions.BiFunction
 
 class RssRepo {
 
-    private val appService by lazy {
+    private val mAppService by lazy {
         AppService.create()
     }
 
     fun getRss1(data:MutableLiveData<List<RssItem>>)
     {
-        appService.getRssLiveData("http://feeds.reuters.com/reuters/businessNews").enqueue(object : Callback<RssFeed> {
+        mAppService.getRss1("http://feeds.reuters.com/reuters/businessNews").enqueue(object : Callback<RssFeed> {
             override fun onFailure(call: Call<RssFeed>, t: Throwable)
             {
                 data.value = null
@@ -40,8 +39,8 @@ class RssRepo {
     @SuppressLint("CheckResult")
     fun getRss2(data:MutableLiveData<List<RssItem>>)
     {
-        val first = appService.getRssObservable("http://feeds.reuters.com/reuters/entertainment").subscribeOn(Schedulers.io())
-        val second = appService.getRssObservable("http://feeds.reuters.com/reuters/environment").subscribeOn(Schedulers.io())
+        val first = mAppService.getRss2("http://feeds.reuters.com/reuters/entertainment").subscribeOn(Schedulers.io())
+        val second = mAppService.getRss2("http://feeds.reuters.com/reuters/environment").subscribeOn(Schedulers.io())
 
         val observer = Observable.zip(
             first,

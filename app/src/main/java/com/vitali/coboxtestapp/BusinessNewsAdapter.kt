@@ -45,7 +45,6 @@ class BusinessNewsAdapter(private val listener: IAdapterListener): RecyclerView.
 
     class BusinessCardViewHolder(itemView: View, listener: IAdapterListener) : RecyclerView.ViewHolder(itemView)
     {
-        //val articleCardIV: ImageView = itemView.findViewById<ImageView>(R.id.card_article_iv)
         val rssTitle: TextView = itemView.findViewById(R.id.rss_item_title_tv)
         val rssDate: TextView = itemView.findViewById(R.id.rss_item_date_tv)
         private var currentPage: RssItem? = null

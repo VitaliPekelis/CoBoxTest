@@ -1,6 +1,5 @@
 package com.vitali.coboxtestapp
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import me.toptas.rssconverter.RssItem

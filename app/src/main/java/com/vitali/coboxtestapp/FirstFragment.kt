@@ -38,10 +38,6 @@ class FirstFragment : Fragment() {
             }
     }
 
-
-
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
@@ -53,8 +49,6 @@ class FirstFragment : Fragment() {
     {
         last_rss_title_tv.text = lastRssTitle
     }
-
-
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

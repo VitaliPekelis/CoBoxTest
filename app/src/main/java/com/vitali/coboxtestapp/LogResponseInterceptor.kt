@@ -4,7 +4,7 @@ import okhttp3.Interceptor
 import okhttp3.Response
 import okhttp3.ResponseBody
 
-class LogJsonInterceptor : Interceptor
+class LogResponseInterceptor : Interceptor
 {
 
     override fun intercept(chain: Interceptor.Chain?): Response
@@ -23,7 +23,7 @@ class LogJsonInterceptor : Interceptor
 
             /*json*/
             if (BuildConfig.DEBUG)
-                Logger.logInfo("JSON", raw)
+                Logger.logInfo("RAW", raw)
 
         }
 

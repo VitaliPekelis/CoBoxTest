@@ -10,23 +10,19 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity(), SecondFragment.OnFragmentInteractionListener {
 
 
-    private var firstFragment:FirstFragment? = null
+    private var mFirstFragment:FirstFragment? = null
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_home -> {
 
-                /*replaceFragment(fragment_container.id, fragment = firstFragment ?: FirstFragment.newInstance().also {
-                    firstFragment = it
-                })*/
-
-                if(firstFragment == null)
+                if(mFirstFragment == null)
                 {
-                    firstFragment = FirstFragment.newInstance()
+                    mFirstFragment = FirstFragment.newInstance()
 
                 }
 
-                replaceFragment(fragment_container.id, firstFragment!!)
+                replaceFragment(fragment_container.id, mFirstFragment!!)
 
 
                 return@OnNavigationItemSelectedListener true
@@ -54,7 +50,7 @@ class MainActivity : AppCompatActivity(), SecondFragment.OnFragmentInteractionLi
     // SecondFragment.OnFragmentInteractionListener - implementation
     //------------------------------------------------------------------------------------------------------------------
     override fun onRssItemClick(title: String) {
-        firstFragment?.lastRssTitle = title
+        mFirstFragment?.lastRssTitle = title
     }
     override fun onUpdateContent(number:Int) {
         Toast.makeText(this@MainActivity, "$number Content Updated", Toast.LENGTH_SHORT).show()
