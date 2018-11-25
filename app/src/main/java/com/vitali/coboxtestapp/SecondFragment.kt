@@ -59,7 +59,7 @@ class SecondFragment : Fragment(), IAdapterListener {
                 fetchEntertainmentAndEnvirNews()
                 fetchBusinessNews()
 
-                businessNews?.observe(this@SecondFragment, Observer {
+                businessNews.observe(this@SecondFragment, Observer {
                     //update UI
                     mAdapterB.apply {
                         currentData.clear()
@@ -70,7 +70,7 @@ class SecondFragment : Fragment(), IAdapterListener {
                 })
 
 
-                entertainmentAndEnvironmentNews?.observe(this@SecondFragment, Observer {
+                entertainmentAndEnvironmentNews.observe(this@SecondFragment, Observer {
                     //update UI
                     mAdapterE.apply {
                         currentData.clear()
