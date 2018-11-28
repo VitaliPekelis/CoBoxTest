@@ -15,12 +15,12 @@ class MainViewModel: ViewModel()
 
     fun fetchBusinessNews()
     {
-        rssRepo.getRss1(businessNews)
+        rssRepo.fetchRss1(businessNews)
     }
 
     fun fetchEntertainmentAndEnvirNews()
     {
-        rssRepo.getRss2(entertainmentAndEnvironmentNews)
+        rssRepo.fetchRss2(entertainmentAndEnvironmentNews)
     }
 
 

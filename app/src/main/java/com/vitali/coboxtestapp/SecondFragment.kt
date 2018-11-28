@@ -31,8 +31,8 @@ class SecondFragment : Fragment(), IAdapterListener {
 
     private var mListener: OnFragmentInteractionListener? = null
     private lateinit var  mViewModel : MainViewModel
-    private val mAdapterB = BusinessNewsAdapter(this)
-    private val mAdapterE = EntertainmentAndEnvironmentNewsAdapter(this)
+    private val mAdapterB = RssNewsAdapter(this)
+    private val mAdapterE = RssNewsAdapter(this)
 
     private val mDelay = 5000L //milliseconds
     private var mHandler:Handler? = Handler(Looper.getMainLooper())
@@ -59,24 +59,30 @@ class SecondFragment : Fragment(), IAdapterListener {
                 fetchEntertainmentAndEnvirNews()
                 fetchBusinessNews()
 
-                businessNews.observe(this@SecondFragment, Observer {
-                    //update UI
+                businessNews.observe(this@SecondFragment, Observer {result ->
+                    //update UI List 1
                     mAdapterB.apply {
-                        currentData.clear()
-                        currentData = it as ArrayList<RssItem>
-                        notifyDataSetChanged()
-                        mListener?.onUpdateContent(1)
+                            if(result?.isNotEmpty() == true)
+                            {
+                                currentData.clear()
+                                currentData = result as ArrayList<RssItem>
+                                notifyDataSetChanged()
+                                mListener?.onUpdateContent(1)
+                            }
                     }
                 })
 
 
-                entertainmentAndEnvironmentNews.observe(this@SecondFragment, Observer {
-                    //update UI
+                entertainmentAndEnvironmentNews.observe(this@SecondFragment, Observer {result ->
+                    //update UI List 2
                     mAdapterE.apply {
-                        currentData.clear()
-                        currentData = it as ArrayList<RssItem>
-                        notifyDataSetChanged()
-                        mListener?.onUpdateContent(2)
+                        if(result?.isNotEmpty() == true)
+                        {
+                            currentData.clear()
+                            currentData = result as ArrayList<RssItem>
+                            notifyDataSetChanged()
+                            mListener?.onUpdateContent(2)
+                        }
                     }
                 })
             }

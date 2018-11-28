@@ -18,12 +18,13 @@ class RssRepo {
         AppService.create()
     }
 
-    fun getRss1(data:MutableLiveData<List<RssItem>>)
+    fun fetchRss1(data:MutableLiveData<List<RssItem>>)
     {
         mAppService.getRss1("http://feeds.reuters.com/reuters/businessNews").enqueue(object : Callback<RssFeed> {
             override fun onFailure(call: Call<RssFeed>, t: Throwable)
             {
                 data.value = null
+                t.printStackTrace()
             }
 
             override fun onResponse(call: Call<RssFeed>, response: Response<RssFeed>) {
@@ -37,7 +38,7 @@ class RssRepo {
     }
 
     @SuppressLint("CheckResult")
-    fun getRss2(data:MutableLiveData<List<RssItem>>)
+    fun fetchRss2(data:MutableLiveData<List<RssItem>>)
     {
         val first = mAppService.getRss2("http://feeds.reuters.com/reuters/entertainment").subscribeOn(Schedulers.io())
         val second = mAppService.getRss2("http://feeds.reuters.com/reuters/environment").subscribeOn(Schedulers.io())
@@ -55,9 +56,10 @@ class RssRepo {
             })
 
         observer.observeOn(AndroidSchedulers.mainThread())
-            .onErrorReturn {
+            .onErrorReturn {error->
                 data.value = null
-                return@onErrorReturn mutableListOf<RssItem>()
+                error.printStackTrace()
+                return@onErrorReturn emptyList()
             }
             .subscribe {
                 data.value = it
