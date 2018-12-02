@@ -11,6 +11,7 @@ class MainActivity : AppCompatActivity(), SecondFragment.OnFragmentInteractionLi
 
 
     private var mFirstFragment:FirstFragment? = null
+    private var mSecondFragment:SecondFragment? = null
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
@@ -28,9 +29,15 @@ class MainActivity : AppCompatActivity(), SecondFragment.OnFragmentInteractionLi
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_dashboard -> {
-                SecondFragment.newInstance().also {
-                    replaceFragment(fragment_container.id, it)
+
+                if(mSecondFragment == null)
+                {
+                    mSecondFragment = SecondFragment.newInstance()
+
                 }
+
+                addFragment(fragment_container.id, mSecondFragment!!)
+
                 return@OnNavigationItemSelectedListener true
             }
         }
@@ -46,12 +53,15 @@ class MainActivity : AppCompatActivity(), SecondFragment.OnFragmentInteractionLi
 
     }
 
+    override fun onBackPressed() {
+        val isEmpty = isFragmentStackEmpty()
+        if(!isEmpty) popFragmentBackStack()
+        super.onBackPressed()
+    }
+
     //------------------------------------------------------------------------------------------------------------------
     // SecondFragment.OnFragmentInteractionListener - implementation
     //------------------------------------------------------------------------------------------------------------------
-    override fun onRssItemClick(title: String) {
-        mFirstFragment?.lastRssTitle = title
-    }
     override fun onUpdateContent(number:Int) {
         Toast.makeText(this@MainActivity, "$number Content Updated", Toast.LENGTH_SHORT).show()
     }

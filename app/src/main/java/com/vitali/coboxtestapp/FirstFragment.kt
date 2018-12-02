@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 
 import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.fragment_first.*
@@ -26,15 +27,13 @@ class FirstFragment : Fragment() {
 
     /*private var mListener: OnFragmentInteractionListener? = null*/
 
-    var lastRssTitle:String = ""
-
-    private lateinit var  mViewModel : MainViewModel
+    private lateinit var  mViewModel : FirstViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         activity?.let {
-            mViewModel = ViewModelProviders.of(it).get(MainViewModel::class.java)
+            mViewModel = ViewModelProviders.of(it).get(FirstViewModel::class.java)
             }
     }
 
@@ -47,7 +46,9 @@ class FirstFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
-        last_rss_title_tv.text = lastRssTitle
+        mViewModel.title.observe(this@FirstFragment, Observer {
+            last_rss_title_tv.text = it
+        })
     }
 
     override fun onAttach(context: Context) {

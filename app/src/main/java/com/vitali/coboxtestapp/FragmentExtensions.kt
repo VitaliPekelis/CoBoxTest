@@ -47,3 +47,8 @@ fun FragmentActivity.popFragmentBackStack()
 {
     supportFragmentManager.popBackStack()
 }
+
+fun FragmentActivity.isFragmentStackEmpty():Boolean
+{
+    return supportFragmentManager.backStackEntryCount == 0
+}

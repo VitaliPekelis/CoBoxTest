@@ -30,7 +30,7 @@ const val RSS_ITEM_EXTRA= "rss_item_extra"
 class SecondFragment : Fragment(), IAdapterListener {
 
     private var mListener: OnFragmentInteractionListener? = null
-    private lateinit var  mViewModel : MainViewModel
+    private lateinit var  mViewModel : SecondViewModel
     private val mAdapterB = RssNewsAdapter(this)
     private val mAdapterE = RssNewsAdapter(this)
 
@@ -54,10 +54,7 @@ class SecondFragment : Fragment(), IAdapterListener {
         super.onCreate(savedInstanceState)
 
         activity?.let {
-            mViewModel = ViewModelProviders.of(this@SecondFragment).get(MainViewModel::class.java).apply {
-
-                fetchEntertainmentAndEnvirNews()
-                fetchBusinessNews()
+            mViewModel = ViewModelProviders.of(this@SecondFragment).get(SecondViewModel::class.java).apply {
 
                 businessNews.observe(this@SecondFragment, Observer {result ->
                     //update UI List 1
@@ -136,7 +133,6 @@ class SecondFragment : Fragment(), IAdapterListener {
      * activity.
      */
     interface OnFragmentInteractionListener {
-        fun onRssItemClick(title:String)
         fun onUpdateContent(number:Int)
     }
 
@@ -146,7 +142,7 @@ class SecondFragment : Fragment(), IAdapterListener {
     //----------------------------------------------------------------------------------------------
     override fun clickOnItem(rssItem: RssItem)
     {
-        mListener?.onRssItemClick(rssItem.title ?: "")
+        mViewModel.onRssItemClick(rssItem.title ?: "")
 
         val intent = Intent(context, RssItemDetailActivity::class.java)
         intent.putExtra(RSS_ITEM_EXTRA, rssItem)
